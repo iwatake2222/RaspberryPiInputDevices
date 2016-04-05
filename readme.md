@@ -15,8 +15,11 @@
 ## Libraries required
 * wiringPi
 
-## Build option
-* -lwiringPi -lpthread
+## Manual build command on Host PC (Cross Compile)
+```
+ARCH=arm ../../../tools/arm-bcm2708/gcc-linaro-arm-linux-gnueabihf-raspbian-x64/bin/arm-linux-gnueabihf-g++ -I../../../libraries/wiringPi/wiringPi -L../../../libraries/wiringPi/wiringPi -lwiringPi -lpthread main.cpp InputDevices.cpp
+```
+* need to change directory dependingon your environment
 
 
 ## Portmap
@@ -58,3 +61,18 @@ USART = System Console
 SPI = 
 I2C = Accelerometer (ADXL345)
 ```
+
+
+## Memo I2C setup
+* Enable I2C (and SPI)
+	* $PI$ > sudo raspi-config 
+	* 9 Advanced Options
+		* A7 I2C
+		* A6 SPI
+
+* Install necessary tools
+	* $PI$ > sudo apt-get install i2c-tools
+
+* Try I2C from console
+	* $PI$ > i2cdetect -y 1
+	* $PI$ > i2cget -y 1 0x53 0x00 b
